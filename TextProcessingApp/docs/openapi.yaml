@@ -1,0 +1,47 @@
+openapi: 3.0.1
+info:
+  title: Text Processing API
+  version: 1.0.0
+  description: API for processing paragraphs of text.
+servers:
+  - url: http://localhost:8080
+paths:
+  /paragraphs/process:
+    post:
+      summary: Process paragraphs of text
+      description: Returns processed text for the given number of paragraphs.
+      parameters:
+        - in: query
+          name: p
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          required: true
+          description: Number of paragraphs to process (must be between 1 and 100)
+      responses:
+        '200':
+          description: Successfully processed paragraphs
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Invalid parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string

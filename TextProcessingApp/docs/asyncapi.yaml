@@ -1,0 +1,37 @@
+asyncapi: '2.6.0'
+info:
+  title: Text Processing Kafka Producer
+  version: '1.0.0'
+  description: |
+    This AsyncAPI document describes the Kafka producer for processed text results.
+servers:
+  kafkaBroker:
+    url: localhost:9092
+    protocol: kafka
+channels:
+  words.processed:
+    description: Topic for processed text results
+    publish:
+      summary: Publishes processed text results
+      operationId: sendResult
+      message:
+        contentType: application/json
+        name: ProcessedTextResult
+        payload:
+          type: object
+          description: Result of text processing
+          additionalProperties: true
+        headers:
+          type: object
+          properties:
+            key:
+              type: string
+              description: Kafka message key
+components:
+  messages:
+    ProcessedTextResult:
+      contentType: application/json
+      payload:
+        type: object
+        additionalProperties: true
+

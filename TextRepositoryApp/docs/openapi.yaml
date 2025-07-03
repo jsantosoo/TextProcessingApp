@@ -1,0 +1,44 @@
+openapi: 3.0.1
+info:
+  title: Text Repository API
+  version: 1.0.0
+  description: API for retrieving computation history.
+servers:
+  - url: http://localhost:8082
+paths:
+  /history:
+    get:
+      summary: Get computation history
+      operationId: getComputationHistory
+      responses:
+        '200':
+          description: A list of computation results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComputationResult'
+components:
+  schemas:
+    ComputationResult:
+      type: object
+      properties:
+        id:
+          type: string
+        freqWord:
+          type: string
+        avgParagraphSize:
+          type: number
+          format: double
+        totalProcessingTime:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - freqWord
+        - avgParagraphSize
+        - totalProcessingTime
+        - createdAt

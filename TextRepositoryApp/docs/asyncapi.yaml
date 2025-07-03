@@ -1,0 +1,40 @@
+asyncapi: '2.6.0'
+info:
+  title: Kafka Topics Documentation
+  version: '1.0.0'
+  description: AsyncAPI documentation for Kafka topics used in this project.
+servers:
+  kafkaBroker:
+    url: localhost:9092
+    protocol: kafka
+channels:
+  computationResult:
+    description: Topic for computation results
+    subscribe:
+      summary: Application consumes computation results
+      message:
+        name: ComputationResult
+        payload:
+          type: object
+          properties:
+            id:
+              type: string
+            freqWord:
+              type: string
+            avgParagraphSize:
+              type: number
+            totalProcessingTime:
+              type: number
+            createdAt:
+              type: string
+              format: date-time
+          required:
+            - freqWord
+            - avgParagraphSize
+            - totalProcessingTime
+            - createdAt
+    publish:
+      summary: Application produces computation results
+      message:
+        $ref: '#/channels/computationResult/subscribe/message'
+
